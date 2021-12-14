@@ -3,7 +3,7 @@ export class Logger {
         console.log(msg);
     }
 
-    Error(msg: string) {
+    Error(msg: string | unknown) {
         console.error(msg);
     }
 }

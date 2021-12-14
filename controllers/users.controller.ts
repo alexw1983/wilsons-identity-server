@@ -1,21 +1,18 @@
 import express, { Router } from 'express';
+import { getAll } from '../database/users';
 import { Logger } from '../middleware';
 
 export class UsersController {
-    public path = '/users';
     public router = Router();
 
-    private logger: Logger;
-
-    constructor(logger: Logger) {
+    constructor(private logger: Logger) {
         this.intializeRoutes();
-        this.logger = logger;
     }
 
     public intializeRoutes() {
-        this.router.get(this.path, (request: express.Request, response: express.Response) => {
-            this.logger.Log("GOT HERE");
-            response.send(["hello", "world"])
-        });
+        this.router.get('/users', async (req: express.Request, res: express.Response) => {
+            const users = await getAll();
+            res.render('users', { title: 'Users', users: users, errors: [] });
+        })
     }
 }
