@@ -2,9 +2,9 @@
   "name": "wilsons-identity-server",
   "version": "1.0.0",
   "description": "An attempt to understand OAuth2.0 and OpenID Connect by building an identity server",
-  "main": "app.ts",
+  "main": "server.ts",
   "scripts": {
-    "start": "npm install & nodemon app.ts",
+    "start": "npm install & nodemon server.ts",
     "test": "test"
   },
   "repository": {
