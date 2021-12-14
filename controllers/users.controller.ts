@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { getAll } from '../database/users';
+import { getAll, updateUser } from '../modules';
 import { Logger } from '../middleware';
 
 export class UsersController {
@@ -12,7 +12,17 @@ export class UsersController {
     public intializeRoutes() {
         this.router.get('/users', async (req: express.Request, res: express.Response) => {
             const users = await getAll();
-            res.render('users', { title: 'Users', users: users, errors: [] });
+            res.send(users.map(u => ({ ...u, password: undefined })));
+        })
+
+        this.router.put('/users', async (req: express.Request, res: express.Response) => {
+            try {
+                await updateUser(req.body);
+
+                return res.send({ message: "Update Succesful" });
+            } catch (error) {
+                return res.status(500).send({ error: error });
+            }
         })
     }
 }

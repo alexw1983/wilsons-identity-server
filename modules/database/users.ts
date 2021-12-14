@@ -1,4 +1,4 @@
-import { config } from '../config';
+import { config } from '../../config';
 import { Firestore } from "@google-cloud/firestore";
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from "uuid";
@@ -55,16 +55,15 @@ export const registerUser = async (user: RegistrationRequest): Promise<void> => 
     await ref.doc(user.email).set(newUser);
 }
 
-
 export const updateUser = async (user: User): Promise<void> => {
 
-    if (!user.email || !user.password) {
+    if (!user.id || !user.email || !user.password) {
         throw 'Invalid User';
     }
 
     const ref = db.collection('Users');
     const existing = await ref
-        .where('email', '==', user.email)
+        .where('id', '==', user.id)
         .get();
 
     const hashPassword = await bcrypt.hash(user.password, 10);
@@ -77,8 +76,6 @@ export const updateUser = async (user: User): Promise<void> => {
         ...user,
         password: hashPassword,
     };
-
-    console.log("got here", newUser)
 
     await ref.doc(user.email).set(newUser);
 }

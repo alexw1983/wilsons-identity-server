@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { registerUser } from '../database/users';
+import { registerUser } from '../modules/database/users';
 import { Logger } from '../middleware';
 
 export class RegistrationController {
@@ -19,8 +19,6 @@ export class RegistrationController {
         })
 
         this.router.post('/register', async (req: express.Request, res: express.Response) => {
-
-
             const newUser = {
                 email: req.body.email,
                 password: req.body.password
@@ -36,7 +34,7 @@ export class RegistrationController {
 
             } catch (error) {
                 this.logger.Error(error);
-                return res.render('register', { title: 'Register', errors: ["An Error Occured"] });
+                return res.render('register', { title: 'Register', errors: [error] });
             }
         })
     }
