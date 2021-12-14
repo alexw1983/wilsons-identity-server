@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+
+  app:
+    container_name: wilsons-identity-server
+    image: alexwilson1983/wilsons-identity-server:1.0.0
+    build:
+      context: .
+      dockerfile: app.dockerfile
+    ports:
+      - "3001:3001"
