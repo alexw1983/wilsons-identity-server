@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import fs from 'fs';
 import bcrypt from 'bcrypt';
 import { User } from "../database";
-import { JwtData } from "./tokens";
+import { JwtData } from "./types";
 
 const db = new Firestore({
     projectId: config.PROJECT_ID,
